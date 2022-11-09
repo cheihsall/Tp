@@ -25,7 +25,10 @@ if(isset($_POST['nom'],$_POST['prenom'],$_POST['email'])){
     $stmtAjoutPersonne=$pdo->prepare("UPDATE utilisateurs SET Nom='$nom',Prenom='$prenom',Email='$email', DateModif='$datemodif' WHERE id=$ID");
     $stmtAjoutPersonne->execute();
     if($stmtAjoutPersonne){
-        header('location:../views/admin.php?');
+        
+        echo '<script>
+                window.location.href =" ../views/admin.php"
+        </script>';
     }else { die('Erreur : '.$e->getMessage());}
    
 }

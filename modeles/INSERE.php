@@ -58,14 +58,3 @@ error_reporting(E_ALL);
                  }else
                  header("location:../views/tp.php?existe");
                 }}
-                
-                
-           
-           
-           
-       
-    
-
-
-
-?>

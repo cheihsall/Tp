@@ -1,104 +1,94 @@
 <?php
 session_start();
 include("MaBase.php");
- include('../controllers/fonction.php');
+include('../controllers/fonction.php');
 
-if(UserEstConnecte())
-{ header("location:../views/admin.php");}
-
-
-if(AdminEstConnecte())
-{ header("location:../views/admin.php");}
+if (UserEstConnecte()) {
+    header("location:../views/admin.php");
+}
 
 
-
-else {
+if (AdminEstConnecte()) {
+    header("location:../views/admin.php");
+} else {
 
 
 
-    if(isset($_POST['email'],$_POST['password']))
-    {
-        
-$email = trim($_POST['email']);
-$mdp = md5($_POST["password"]);
+    if (isset($_POST['email'], $_POST['password'])) {
 
-try{
-$sth = $pdo->prepare(" SELECT * FROM utilisateurs WHERE email = '".$email."' AND MotDePasse = '".$mdp."'"); 
-$sth->execute();
-$res = $sth->fetchAll(PDO::FETCH_ASSOC); 
-if(count($res) == 0){        
-  $message="Compte introuvable, inscrivez-vous";
-  header("location:../views/pageConnexion.php?erreur");
-    }
-    
-   
-    else{
+        $email = trim($_POST['email']);
+        $mdp = md5($_POST["password"]);
 
-        $ins=$pdo->prepare("SELECT id,Roles,Nom,Prenom,Matricule,Photo,Etat  FROM utilisateurs WHERE email = '".$email."' AND MotDePasse = '".$mdp."'");
-        $ins->execute();
-        $row=$ins->fetch(PDO::FETCH_ASSOC);
-        $role=$row['Roles'];
-     $etat=$row['Etat'];
-     /* if ($etat!=='1'){   
+        try {
+            $sth = $pdo->prepare(" SELECT * FROM utilisateurs WHERE email = '" . $email . "' AND MotDePasse = '" . $mdp . "'");
+            $sth->execute();
+            $res = $sth->fetchAll(PDO::FETCH_ASSOC);
+            if (count($res) == 0) {
+                $message = "Compte introuvable, inscrivez-vous";
+                header("location:../views/pageConnexion.php?erreur");
+            } else {
+
+                $ins = $pdo->prepare("SELECT id,Roles,Nom,Prenom,Matricule,Photo,Etat  FROM utilisateurs WHERE email = '" . $email . "' AND MotDePasse = '" . $mdp . "'");
+                $ins->execute();
+                $row = $ins->fetch(PDO::FETCH_ASSOC);
+                $role = $row['Roles'];
+                $etat = $row['Etat'];
+                /* if ($etat!=='1'){   
  
          header("location:../views/pageConnexion.php?erreur2");
          
      } else{ */
-        /* echo "haut";
+                /* echo "haut";
         exit;  */
-        
-if($role=='User' && $etat=='0' ){
-    /* echo "entré1";
-        exit; */
-    $_SESSION['Prenom']=$row['Prenom'];
-    $_SESSION['Nom']=$row['Nom'];
-    $_SESSION['Matricule']=$row['Matricule'];
-    $_SESSION['Photo']=$row['Photo'];
-    $_SESSION['coonect']=$row['id'];
-    $_SESSION['User']='OUI';
-    $Prenom=$_SESSION['Prenom'];
-    $Nom=$_SESSION['Nom'];
-    $connecte=$_SESSION['connect'];
-    $Matricule=$_SESSION['Matricule'];
-    /* echo"$Matricule"; */
-     header("location:../views/admin.php");
-  
-     
-}
 
- 
-        if($role=='Administrateur' && $etat=='0'){
-            /* echo "entré2";
+                if ($role == 'User' && $etat == '0') {
+                    /* echo "entré1";
+        exit; */
+                    $_SESSION['Prenom'] = $row['Prenom'];
+                    $_SESSION['Nom'] = $row['Nom'];
+                    $_SESSION['Matricule'] = $row['Matricule'];
+                    $_SESSION['Photo'] = $row['Photo'];
+                    $_SESSION['coonect'] = $row['id'];
+                    $_SESSION['User'] = 'OUI';
+                    $Prenom = $_SESSION['Prenom'];
+                    $Nom = $_SESSION['Nom'];
+                    $connecte = $_SESSION['connect'];
+                    $Matricule = $_SESSION['Matricule'];
+                    /* echo"$Matricule"; */
+                    header("location:../views/admin.php");
+                }
+
+
+                if ($role == 'Administrateur' && $etat == '0') {
+                    /* echo "entré2";
             exit; */
-            $_SESSION['Prenom']=$row['Prenom'];
-            $_SESSION['Nom']=$row['Nom'];
-            $_SESSION['Matricule']=$row['Matricule'];
-            $_SESSION['Photo']=$row['Photo'];
-            $_SESSION['connect']=$row['id'];
-           
-            $_SESSION['Administrateur']='OUI';
-            /* $Prenom=$_SESSION['Prenom'];
+                    $_SESSION['Prenom'] = $row['Prenom'];
+                    $_SESSION['Nom'] = $row['Nom'];
+                    $_SESSION['Matricule'] = $row['Matricule'];
+                    $_SESSION['Photo'] = $row['Photo'];
+                    $_SESSION['connect'] = $row['id'];
+
+                    $_SESSION['Administrateur'] = 'OUI';
+                    /* $Prenom=$_SESSION['Prenom'];
             $Nom=$_SESSION['Nom'];
             $Matricule=$_SESSION['Matricule']; */
-            /* echo"$Matricule"; */
-            header("location:../views/admin.php"); 
-          
-             
-        }
-        
-else{ header("location:../views/pageConnexion.php?erreur2");}
-        /* else if($profession=='admin'){
+                    /* echo"$Matricule"; */
+                    header("location:../views/admin.php");
+                } else {
+                    header("location:../views/pageConnexion.php?erreur2");
+                }
+                /* else if($profession=='admin'){
             
             header("location:profil/prof_membre.php");
         } */
-    /* } */
-}
-}
-catch(PDOException $e){ echo ("Erreur:".$e->getMessage());}
- }
-else{
- echo "desole mon gars";
-} 
+                /* } */
+            }
+        } catch (PDOException $e) {
+            echo ("Erreur:" . $e->getMessage());
+        }
+    } else {
+        echo "desole mon gars";
+    }
 }
 
 ?>
