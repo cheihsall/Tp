@@ -8,9 +8,10 @@ CREATE TABLE utilisateurs
     Nom VARCHAR(100) NOT NULL,
     Prenom VARCHAR(100) NOT NULL,
     Email VARCHAR(255) NOT NULL,
-    `Role` ENUM('User', 'Administrateur') NOT NULL,
+    `Roles` ENUM('User', 'Administrateur') NOT NULL,
     `MotDePasse` VARCHAR(255) NOT NULL,
     Etat BOOLEAN DEFAULT 0,
+    `Photo` BLOOD,
     `DateInscription` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     DateModif DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     DateArchiv DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
