@@ -43,7 +43,7 @@ error_reporting(E_ALL);
                 $recup->bindValue(6, $photo);
                 $recup->execute();
     
-                echo "Inscription réussie";
+               
                 $sql = "SELECT id FROM utilisateurs WHERE Email = '".$email."'";
                 $id = $pdo->prepare($sql);
                 $id->execute();
@@ -55,6 +55,8 @@ error_reporting(E_ALL);
                 $matricule2 = $pdo->prepare($sql2);
                 $matricule2->execute();
                 /* $message3.="<label>Votre matricule est: '".$matricule."'</label>"; */
+                
+                header("location:../views/tp.php?pop");
                  }else
                  header("location:../views/tp.php?existe");
                 }}

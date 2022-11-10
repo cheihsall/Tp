@@ -1,7 +1,8 @@
 <?php
-session_start();
 
 include('../controllers/fonction.php');
+include_once "../controllers/f2.php";
+init_php_session();
 /* var_dump(AdminEstConnecte());
 exit; */
 
@@ -22,7 +23,7 @@ if (AdminEstConnecte()) {
      $Nom = $_SESSION['Nom'];
      $Matricule = $_SESSION['Matricule'];
 
-     base64_encode($_SESSION['Photo']);
+     $Photo= base64_encode($_SESSION['Photo']);
      $LISTE1 = "";
      $LISTE2 = "";
 } else {
@@ -76,13 +77,13 @@ if (AdminEstConnecte()) {
 
 
 
+               
+            <?php   include("../modeles/modif.php"); ?>
 
 
 
-
-
-
-               <div class="position-absolute top-0 start-25"> <?= Modif()/* include('modif.php'); */ ?></div>
+   
+             
                <div class=" d-flex justify-content-center mb-3" style="margin-top:180px; margin-left:50px;margin-right:50px;">
                     <?= AFFICHEtab(); ?>
                </div>
@@ -90,7 +91,16 @@ if (AdminEstConnecte()) {
      </div>
      <div class="w-100 position-absolute bottom-0 d-flex justify-content-center align-items-center" style="background-color: black;color:white; height:60px ">
           <b>© Copyright Simplon. Designed and Developed by <strong>GENTIL Digit-ALL</strong></b>
-     </div>
+     </div><script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"></script>
+
+
+     
 </body>
 
+    
+
+
+
+ </div>
+  </div>
 </html>

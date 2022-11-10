@@ -1,5 +1,6 @@
 <?php
-session_start();
+include_once "../controllers/f2.php";
+init_php_session();
 include("MaBase.php");
 include('../controllers/fonction.php');
 
@@ -52,21 +53,21 @@ if (AdminEstConnecte()) {
                     $_SESSION['User'] = 'OUI';
                     $Prenom = $_SESSION['Prenom'];
                     $Nom = $_SESSION['Nom'];
-                    $connecte = $_SESSION['connect'];
+                   
                     $Matricule = $_SESSION['Matricule'];
                     /* echo"$Matricule"; */
                     header("location:../views/admin.php");
                 }
 
 
-                if ($role == 'Administrateur' && $etat == '0') {
+                else if ($role == 'Administrateur' && $etat == '0') {
                     /* echo "entré2";
             exit; */
                     $_SESSION['Prenom'] = $row['Prenom'];
                     $_SESSION['Nom'] = $row['Nom'];
                     $_SESSION['Matricule'] = $row['Matricule'];
                     $_SESSION['Photo'] = $row['Photo'];
-                    $_SESSION['connect'] = $row['id'];
+                    $_SESSION['coonect'] = $row['id'];
 
                     $_SESSION['Administrateur'] = 'OUI';
                     /* $Prenom=$_SESSION['Prenom'];

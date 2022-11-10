@@ -2,21 +2,24 @@
 <?php
 
 include("../modeles/MaBase.php");
+
+include_once "../controllers/f2.php";
+init_php_session();
 $Action = "Action";
 echo '<table  style="  width:100%;background:#ffffff;" class=" table-striped">  <tr width:100%;  style="background:#0459D9; color:white; ">';
 
-
+$connec=$_SESSION['coonect'];
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
   $currentPage = (int) strip_tags($_GET['page']);
 } else {
   $currentPage = 1;
 }
-$ins = $pdo->prepare('SELECT Matricule,Nom,Prenom,Email,Roles FROM utilisateurs WHERE Etat=0 ');
+$ins = $pdo->prepare("SELECT Matricule,Nom,Prenom,Email,Roles FROM utilisateurs WHERE id NOT IN ($connec) AND Etat=0 ");
 $ins->execute();
 
 
-$ins = $pdo->query("SELECT id,Nom,Prenom,Email,Roles,Matricule,Etat FROM utilisateurs WHERE Etat=0");
+$ins = $pdo->query("SELECT id,Nom,Prenom,Email,Roles,Matricule,Etat FROM utilisateurs WHERE id NOT IN ($connec) AND Etat=0");
 
 for ($i = 1; $i < /* $ins->columnCount() */ 6; $i++) {
   $Nom_colonne = $ins->getColumnMeta($i);
@@ -25,7 +28,7 @@ for ($i = 1; $i < /* $ins->columnCount() */ 6; $i++) {
 echo '<th>' . $Action . '</th>';
 echo "</tr>";
 
-$sql = 'SELECT COUNT(*) AS Etat FROM `utilisateurs` where Etat=0 ;';
+$sql = "SELECT COUNT(*) AS Etat FROM `utilisateurs` where id NOT IN ($connec) AND  Etat=0 ;";
 
 // On prépare la requête
 $ins = $pdo->prepare($sql);
@@ -49,7 +52,7 @@ $pages = ceil($nbArticles / $parPage);
 // Calcul du 1er article de la page
 $premier = ($currentPage * $parPage) - $parPage;
 
-$sql = 'SELECT * FROM `utilisateurs` WHERE Etat=0 ORDER BY `Prenom` DESC LIMIT :premier, :parpage ;';
+$sql = "SELECT * FROM `utilisateurs` WHERE id NOT IN ($connec) AND Etat=0 ORDER BY `Prenom` DESC LIMIT :premier, :parpage ;";
 
 // On prépare la requête
 $ins = $pdo->prepare($sql);
@@ -67,7 +70,7 @@ if (isset($_POST["verif"])) {
     $classe = $_POST["classe"];
     if (!empty($classe)) {
 
-      $list = "SELECT * FROM utilisateurs WHERE Etat=0 AND Nom LIKE '%$classe%' OR Prenom LIKE '%$classe%'  ";
+      $list = "SELECT * FROM utilisateurs WHERE id NOT IN ($connec) AND Etat=0 AND Nom LIKE '%$classe%' OR Prenom LIKE '%$classe%'  ";
       $ins = $pdo->query($list);
 
       $ins->execute();
@@ -84,7 +87,7 @@ if (isset($_POST["verif"])) {
         $etat = $row['Etat'];
         $action = "Action";
 
-        if ($etat == 0) {
+        if ($etat == 0 && $ID!==$connec) {
 
 
           echo '<tr>
@@ -133,7 +136,7 @@ if (empty($classe)) {
     $etat = $row['Etat'];
     $action = "Action";
 
-
+    if ($etat == 0 && $ID!==$connec) {
 
     echo '<tr>
          
@@ -159,6 +162,7 @@ if (empty($classe)) {
         </td>
     
       </tr>';
+       }
   }
 } ?>
 <!DOCTYPE html>
@@ -191,7 +195,7 @@ if (empty($classe)) {
     <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
     <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
       <a href="admin.php?page=<?= $currentPage - 1 ?>" class="page-link">
-        << /a>
+        < </a>
     </li>
     <?php for ($page = 1; $page <= $pages; $page++) : ?>
       <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->

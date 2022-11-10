@@ -1,3 +1,6 @@
+<?php
+include('../controllers/fonction.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +24,7 @@
           </p>
           <p id="message"></p>
         </div>
+        
         <div class="text-danger d-flex justify-content-center "> <?php if (isset($_GET['existe'])) {
                                                                     echo "Cet Email a deja un compte";
                                                                   }
@@ -93,15 +97,44 @@
             Se connecter </a>
 
         </div>
+   <!--  </div><div class="position-absolute top-0 start-50"> /* Pop() *//* include('modif.php'); */ ?></div> -->
+  <?  if (isset($_GET['pop']))
+ ?>
+  <span id="success"><? $_GET['pop']?></span>
+    <button type="button" class="btn btn-primary" name="pop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  id="popup" >
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel" class="text-center">Inscription reussie avec succés </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     <h5 class="d-flex justify-content-center"> voulez vous etre rediriger dans votre page <br>
+       connexion </h5>
+      <div class=" d-flex"> <br>
+                <button type="button" data-bs-dismiss="modal" class="  form-control align-self-end position-relative  start-0" style="margin-left:10px;" name="">NON</button>
+            
+                <button type="button" class="form-control align-self-end position-relative  start-25 " style="background-color:green; color:white; margin-left:150px; "name="submit"> <a href="pageConnexion.php" style="text-decoration: none; "> OUI</a></button>
+            </div>  
+      
+      </div>
+      
     </div>
+  </div>
+</div>
     </form>
 
   </div>
 
   </div>
-
+  
   <script src="veriff.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

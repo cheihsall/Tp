@@ -33,7 +33,7 @@
         
 
         if (checkEmail(email)) {
-          erreur2.innerHTML = 'Adresse e-mail valide!';
+          erreur2.innerHTML = '';
         erreur2.style.color = 'green';
         return; 
         } 
@@ -66,7 +66,7 @@
        return;
       }
  
-      erreur3.innerHTML = 'cool!';
+      erreur3.innerHTML = '';
       erreur3.style.color = 'green';
       pwd.style.borderColor = "#008a00";
   })

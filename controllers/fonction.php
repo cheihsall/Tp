@@ -1,13 +1,18 @@
 <?php
-function Modif()
+
+
+
+
+
+/* function Pop()
 {
-  require_once('../views/admin.php');
+  require_once('../views/tp.php');
 
-  if (isset($_GET['modifid'])) {
+  if (isset($_GET['pop'])) {
 
-    include('../modeles/modif.php');
+    include('../views/pop.php');
   }
-}
+} */
 
 
 function UserEstConnecte()

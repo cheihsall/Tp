@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <?php
 include("../modeles/MaBase.php");
+include_once "../controllers/f2.php";
+init_php_session();
 $Action = "Action";
 echo '<table  style="  width:100%;background:#ffffff;" class=" table-striped"> <tr width:100%;  style="background:#0459D9; color:white; ">';
 
@@ -179,7 +181,7 @@ if (empty($classe)) {
     <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
     <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
       <a href="admin.php?lister=<?= $currentPage - 1 ?>" class="page-link">
-        << /a>
+        <</a>
     </li>
     <?php for ($page = 1; $page <= $pages; $page++) : ?>
       <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->

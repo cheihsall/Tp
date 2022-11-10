@@ -20,7 +20,7 @@ et.style.color = 'red'
        return;
       }
       et.style.color = 'green'
-      erreur.innerHTML = 'cool!';
+      erreur.innerHTML = '';
       erreur.style.color = 'green';
       nom.style.borderColor = "#008a00";
   })
@@ -38,7 +38,7 @@ et.style.color = 'red'
        return;
       }
       et1.style.color = 'green'
-      erreur1.innerHTML = 'cool!';
+      erreur1.innerHTML = '';
       erreur1.style.color = 'green';
       prenom.style.borderColor = "#008a00";
   })
@@ -59,7 +59,7 @@ email.addEventListener('keyup', function validate() {
     
 
     if (checkEmail(email)) {
-      erreur2.innerHTML = 'Adresse e-mail valide!';
+      erreur2.innerHTML = '';
     erreur2.style.color = 'green';
     et2.style.color = 'green'
     return; 
@@ -99,7 +99,7 @@ email.addEventListener('keyup', function validate() {
        return;
       }
       et3.style.color = 'green'
-      erreurx.innerHTML = 'cool!';
+      erreurx.innerHTML = '';
       erreurx.style.color = 'green';
       role.style.borderColor = "#008a00";
   })
@@ -118,7 +118,7 @@ email.addEventListener('keyup', function validate() {
        return;
       }
  et4.style.color = 'green'
-      erreur3.innerHTML = 'cool!';
+      erreur3.innerHTML = '';
       erreur3.style.color = 'green';
       pwd.style.borderColor = "#008a00";
   })
@@ -150,7 +150,7 @@ email.addEventListener('keyup', function validate() {
        return;
       }
 
-      erreur4.innerHTML = 'cool!';
+      erreur4.innerHTML = '';
       erreur4.style.color = 'green';
       pwd1.style.borderColor = "#008a00";
   })
@@ -173,4 +173,11 @@ masque.addEventListener('mouseover',function(){
   
   
   })
+
+  const success = document.getElementById('success');
+const bouttonModal = document.getElementById('popup');
+bouttonModal.style.display = 'none';
+if (success) {
+    bouttonModal.click();
+}
   
