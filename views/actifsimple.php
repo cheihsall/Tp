@@ -3,6 +3,8 @@
 include("../modeles/MaBase.php");
 include_once "../controllers/f2.php";
 init_php_session();
+
+$connec=$_SESSION['coonect'];
 $Action = "Action";
 echo '<table  style="  width:100%;background:#ffffff;" class=" table-striped"> <tr width:100%;  style="background:#0459D9; color:white; ">';
 
@@ -17,7 +19,7 @@ $ins = $pdo->prepare('SELECT Matricule,Nom,Prenom,Email FROM utilisateurs WHERE 
 $ins->execute();
 
 
-$ins = $pdo->query("SELECT id,Nom,Prenom,Email,Matricule,DateInscription,Etat FROM utilisateurs WHERE Etat=0");
+$ins = $pdo->query("SELECT id,Nom,Prenom,Email,Matricule,DateInscription,Etat FROM utilisateurs WHERE id NOT IN ($connec) AND  Etat=0");
 
 for ($i = 1; $i < /* $ins->columnCount() */ 6; $i++) {
   $Nom_colonne = $ins->getColumnMeta($i);
@@ -51,7 +53,7 @@ $pages = ceil($nbArticles / $parPage);
 // Calcul du 1er article de la page
 $premier = ($currentPage * $parPage) - $parPage;
 
-$sql = 'SELECT * FROM `utilisateurs` WHERE Etat=0 ORDER BY `Prenom` DESC LIMIT :premier, :parpage;';
+$sql = "SELECT * FROM `utilisateurs` WHERE id NOT IN ($connec) AND Etat=0 ORDER BY `Prenom` DESC LIMIT :premier, :parpage;";
 
 // On prépare la requête
 $ins = $pdo->prepare($sql);
@@ -69,7 +71,7 @@ if (isset($_POST["verif"])) {
     $classe = $_POST["classe"];
     if (!empty($classe)) {
 
-      $list = "SELECT * FROM utilisateurs WHERE Etat=0 AND Nom LIKE '%$classe%' OR Prenom LIKE '%$classe%'";
+      $list = "SELECT * FROM utilisateurs WHERE id NOT IN ($connec) AND Etat=0 AND Nom  LIKE '%$classe%' OR Prenom LIKE '%$classe%'";
       $ins = $pdo->query($list);
 
       $ins->execute();
@@ -86,7 +88,7 @@ if (isset($_POST["verif"])) {
         $etat = $row['Etat'];
 
 
-        if ($etat == 0) {
+        if ($etat == 0 && $ID!==$connec) {
 
 
         echo '<tr>
@@ -126,7 +128,7 @@ if (empty($classe)) {
     $etat = $row['Etat'];
     $action = "Action";
 
-    if ($etat == 0) {
+    if ($etat == 0 && $ID!==$connec) {
 
     echo '<tr>
          

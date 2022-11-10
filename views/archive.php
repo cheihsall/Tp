@@ -43,7 +43,7 @@ $row = $ins->fetch();
 $nbArticles = (int) $row['Etat'];
 
 // On détermine le nombre d'articles par page
-$parPage = 20;
+$parPage = 10;
 
 $pages = ceil($nbArticles / $parPage);
 
